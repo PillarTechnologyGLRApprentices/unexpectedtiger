@@ -1,13 +1,11 @@
 package com.pillartechnology.unexpectedtiger.controller;
 
-import com.pillartechnology.unexpectedtiger.model.TestObj;
+import com.pillartechnology.unexpectedtiger.model.Item;
+import com.pillartechnology.unexpectedtiger.repositories.ItemRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,10 +17,18 @@ public class IndexController {
 
     @RequestMapping("/")
     String index(ModelMap model) {
-        List<String> todoItems = new ArrayList<>();
-        todoItems.add("Item1");
-        todoItems.add("Item2");
-        model.put("todoItems", todoItems);
+        List<Item> itemsFromRepo = ItemRepository.getTodoItems();
+        model.put("todoItems", itemsFromRepo);
         return "index";
     }
+
+    //Original way of adding two things to the arraylist and passing to index.html
+//    @RequestMapping("/")
+//    String index(ModelMap model) {
+//        List<Item> todoItems = new ArrayList<>();
+//        todoItems.add("Item1");
+//        todoItems.add("Item2");
+//        model.put("todoItems", todoItems);
+//        return "index";
+//    }
 }
