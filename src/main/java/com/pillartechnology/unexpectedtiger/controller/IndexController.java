@@ -25,7 +25,7 @@ public class IndexController {
 
     @RequestMapping("/add")
     String add(Item item) {
-        System.out.println("We made it here");
+        System.out.println(item.getContent());
         return "index";
     }
 
