@@ -19,8 +19,22 @@ public class IndexController {
     String index(ModelMap model) {
         List<Item> itemsFromRepo = ItemRepository.getTodoItems();
         model.put("todoItems", itemsFromRepo);
+        model.addAttribute("item", new Item());
         return "index";
     }
+
+    @RequestMapping("/add")
+    String add(Item item) {
+        System.out.println("We made it here");
+        return "index";
+    }
+
+
+
+
+
+
+
 
     //Original way of adding two things to the arraylist and passing to index.html
 //    @RequestMapping("/")

@@ -8,6 +8,14 @@
 
 <!--todoItems & second item.content will be underlined in red in Intellij-->
 <!---->
+<h2>Add to your list of things todo</h2>
+<form th:action="@{/add}" method="post" th:object="${item}">
+
+    <input type="text" name="entryfield" value="Walk the dog" th:field="${item.content}"/>
+    <input type="submit" value="Add to your list."/>
+</form>
+
+<h2>Your list of things todo</h2>
 <div th:each="item : ${todoItems}" th:text="${item.content}" >Hello World</div>
 
 </body>

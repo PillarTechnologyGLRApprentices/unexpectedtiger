@@ -8,6 +8,10 @@ public class Item {
 
     private String content;
 
+    public Item() {
+
+    }
+
     public Item(String content) {
         this.content = content;
     }
