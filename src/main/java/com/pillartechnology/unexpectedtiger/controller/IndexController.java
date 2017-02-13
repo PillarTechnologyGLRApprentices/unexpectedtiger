@@ -2,33 +2,28 @@ package com.pillartechnology.unexpectedtiger.controller;
 
 import com.pillartechnology.unexpectedtiger.model.Item;
 import com.pillartechnology.unexpectedtiger.repositories.ItemRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
-/**
- * Created by erinbergman on 2/8/17.
- */
-
 @Controller
 public class IndexController {
 
-    private List<Item> itemsFromRepo;
+    @Autowired
+    private ItemRepository itemRepository;
 
     @RequestMapping("/")
     String index(ModelMap model) {
-        itemsFromRepo = ItemRepository.getTodoItems();
-        model.put("todoItems", itemsFromRepo);
+
+        model.put("todoItems", itemRepository.getTodoItems());
         model.addAttribute("item", new Item());
         return "index";
     }
 
     @RequestMapping("/add")
     String add(Item item) {
-        System.out.println(item.getContent());
-        itemsFromRepo.add(item);
+        itemRepository.add(item);
         return "redirect:/";
     }
 

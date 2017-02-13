@@ -1,21 +1,23 @@
 package com.pillartechnology.unexpectedtiger.repositories;
 
 import com.pillartechnology.unexpectedtiger.model.Item;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by erinbergman on 2/9/17.
- */
+@Repository
 public class ItemRepository {
 
-    public static List<Item> todoItems = new ArrayList<>();
+    private List<Item> todoItems = new ArrayList<>();
 
 
-    public static List<Item> getTodoItems() {
+    public List<Item> getTodoItems() {
         return todoItems;
     }
 
+    public void add(Item item) {
+        todoItems.add(item);
+    }
 
 }

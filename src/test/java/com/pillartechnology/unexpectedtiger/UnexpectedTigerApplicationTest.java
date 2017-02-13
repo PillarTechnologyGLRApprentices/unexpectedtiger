@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 //@SpringBootTest
 @WebMvcTest(IndexController.class)
-public class UnexpectedTigerApplicationTests {
+public class UnexpectedTigerApplicationTest {
 
 	@Autowired
 	private MockMvc mockMvc;
