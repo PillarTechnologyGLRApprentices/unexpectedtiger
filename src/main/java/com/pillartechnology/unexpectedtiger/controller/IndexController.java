@@ -15,9 +15,11 @@ import java.util.List;
 @Controller
 public class IndexController {
 
+    private List<Item> itemsFromRepo;
+
     @RequestMapping("/")
     String index(ModelMap model) {
-        List<Item> itemsFromRepo = ItemRepository.getTodoItems();
+        itemsFromRepo = ItemRepository.getTodoItems();
         model.put("todoItems", itemsFromRepo);
         model.addAttribute("item", new Item());
         return "index";
@@ -26,7 +28,8 @@ public class IndexController {
     @RequestMapping("/add")
     String add(Item item) {
         System.out.println(item.getContent());
-        return "index";
+        itemsFromRepo.add(item);
+        return "redirect:/";
     }
 
 

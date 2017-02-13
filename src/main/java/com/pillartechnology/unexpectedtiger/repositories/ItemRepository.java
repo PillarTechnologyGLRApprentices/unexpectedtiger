@@ -2,7 +2,7 @@ package com.pillartechnology.unexpectedtiger.repositories;
 
 import com.pillartechnology.unexpectedtiger.model.Item;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,10 +10,8 @@ import java.util.List;
  */
 public class ItemRepository {
 
-    private static final List<Item> todoItems = Arrays.asList(
-            new Item("Item1"),
-            new Item("Item2")
-    );
+    public static List<Item> todoItems = new ArrayList<>();
+
 
     public static List<Item> getTodoItems() {
         return todoItems;
