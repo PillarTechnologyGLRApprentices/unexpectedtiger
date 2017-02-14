@@ -20,4 +20,8 @@ public class ItemRepository {
         todoItems.add(item);
     }
 
+
+    void remove(Item item) {
+        todoItems.remove(item);
+    }
 }
