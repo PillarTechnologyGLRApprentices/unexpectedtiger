@@ -15,7 +15,7 @@ public class ItemRepository {
         todoItems.add(item);
     }
 
-    List<Item> retrieveAllItems() {
+    public List<Item> retrieveAllItems() {
         return todoItems;
     }
 

@@ -16,7 +16,7 @@ public class IndexController {
     @RequestMapping("/")
     String index(ModelMap model) {
 
-//        model.put("todoItems", itemRepository.getTodoItems());
+      model.put("todoItems", itemRepository.retrieveAllItems());
         model.addAttribute("item", new Item());
         return "index";
     }

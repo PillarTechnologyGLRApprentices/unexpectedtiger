@@ -67,6 +67,25 @@ public class ItemRepositoryTest {
     }
 
     @Test
+    public void removeItems_removes_last_item_from_two_item_list() {
+        //arrange
+        ItemRepository itemRepository = new ItemRepository();
+        Item item1 = new Item("test1");
+        Item item2 = new Item("test2");
+
+        itemRepository.add(item1);
+        itemRepository.add(item2);
+
+        itemRepository.remove();
+        final List<Item> actualItems = itemRepository.retrieveAllItems();
+
+        Assert.assertEquals("test1", actualItems.get(0).getContent());
+
+
+    }
+
+
+    @Test
     public void removeItems_doesnt_remove_from_empty_list() {
         //arrange
         ItemRepository itemRepository = new ItemRepository();
