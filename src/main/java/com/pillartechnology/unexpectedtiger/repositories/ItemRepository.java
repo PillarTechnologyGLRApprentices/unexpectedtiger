@@ -20,6 +20,8 @@ public class ItemRepository {
     }
 
     void remove() {
-        todoItems.remove(todoItems.size()-1);
+        if (todoItems.size() > 0) {
+            todoItems.remove(todoItems.size() - 1);
+        }
     }
 }

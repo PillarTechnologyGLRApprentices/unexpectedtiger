@@ -52,7 +52,7 @@ public class ItemRepositoryTest {
     }
 
     @Test
-    public void removeItems() {
+    public void removeItems_removes_last_item_from_list() {
         //arrange
         ItemRepository itemRepository = new ItemRepository();
         Item item = new Item();
@@ -61,10 +61,24 @@ public class ItemRepositoryTest {
         itemRepository.remove();
         final List<Item> actualItems = itemRepository.retrieveAllItems();
 
-        Assert.assertEquals(0, itemRepository.retrieveAllItems().size());
+        Assert.assertEquals(0, actualItems.size());
 
 
     }
+
+    @Test
+    public void removeItems_doesnt_remove_from_empty_list() {
+        //arrange
+        ItemRepository itemRepository = new ItemRepository();
+
+        itemRepository.remove();
+        final List<Item> actualItems = itemRepository.retrieveAllItems();
+
+        Assert.assertEquals(0, actualItems.size());
+
+
+    }
+
 
 
 }
