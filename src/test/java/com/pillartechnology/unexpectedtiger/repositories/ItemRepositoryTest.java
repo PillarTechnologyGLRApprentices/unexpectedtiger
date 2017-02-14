@@ -6,8 +6,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 
 public class ItemRepositoryTest {
 
@@ -20,10 +18,13 @@ public class ItemRepositoryTest {
         itemRepository.add(item);
 
         List<Item> todoItems = itemRepository.getTodoItems();
+
         Assert.assertEquals(todoItems.get(0),item);
 
-        itemRepository.remove(item);
+        itemRepository.removeLastItem();
         Assert.assertEquals(todoItems.size(), 0);
     }
+
+
 
 }

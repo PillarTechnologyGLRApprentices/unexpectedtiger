@@ -15,6 +15,11 @@
     <input type="submit" value="Add to your list."/>
 </form>
 
+
+<form th:action="@{/remove}" method="post">
+    <input type="submit" value="Remove last item"></input>
+</form>
+
 <h2>Your list of things todo</h2>
 <div th:each="item : ${todoItems}" th:text="${item.content}" >Hello World</div>
 

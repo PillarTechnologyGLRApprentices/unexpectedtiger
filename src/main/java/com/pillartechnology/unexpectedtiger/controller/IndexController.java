@@ -7,11 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 public class IndexController {
 
     @Autowired
     private ItemRepository itemRepository;
+
+
 
     @RequestMapping("/")
     String index(ModelMap model) {
@@ -27,20 +31,9 @@ public class IndexController {
         return "redirect:/";
     }
 
-
-
-
-
-
-
-
-    //Original way of adding two things to the arraylist and passing to index.html
-//    @RequestMapping("/")
-//    String index(ModelMap model) {
-//        List<Item> todoItems = new ArrayList<>();
-//        todoItems.add("Item1");
-//        todoItems.add("Item2");
-//        model.put("todoItems", todoItems);
-//        return "index";
-//    }
+    @RequestMapping("/remove")
+    String remove() {
+        itemRepository.removeLastItem();
+        return "redirect:/";
+    }
 }
