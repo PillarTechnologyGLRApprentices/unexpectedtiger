@@ -25,6 +25,15 @@ public class ItemRepositoryTest {
         Assert.assertEquals(todoItems.size(), 0);
     }
 
+    @Test
+    public void removeLastItem_will_not_remove_from_emptyList() {
+        itemRepository = new ItemRepository();
 
+        List<Item> todoItems = itemRepository.getTodoItems();
+
+        itemRepository.removeLastItem();
+        Assert.assertEquals(todoItems.size(),0);
+
+    }
 
 }
