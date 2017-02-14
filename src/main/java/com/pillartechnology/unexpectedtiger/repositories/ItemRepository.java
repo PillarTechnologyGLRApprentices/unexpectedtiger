@@ -11,13 +11,15 @@ public class ItemRepository {
 
     private List<Item> todoItems = new ArrayList<>();
 
-
-    public List<Item> getTodoItems() {
-        return todoItems;
-    }
-
     public void add(Item item) {
         todoItems.add(item);
     }
 
+    List<Item> retrieveAllItems() {
+        return todoItems;
+    }
+
+    void remove() {
+        todoItems.remove(todoItems.size()-1);
+    }
 }
