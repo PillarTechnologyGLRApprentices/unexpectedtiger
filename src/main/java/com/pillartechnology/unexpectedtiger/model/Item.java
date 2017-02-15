@@ -1,8 +1,5 @@
 package com.pillartechnology.unexpectedtiger.model;
 
-/**
- * Created by erinbergman on 2/8/17.
- */
 
 public class Item {
 
@@ -22,5 +19,22 @@ public class Item {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Item item = (Item) o;
+
+        return content.equals(item.content);
+    }
+
+    @Override
+    public int hashCode() {
+        if (content == null) { return Integer.MAX_VALUE; }
+
+        return content.hashCode();
     }
 }

@@ -58,7 +58,7 @@ public class ItemRepositoryTest {
         Item item = new Item();
         itemRepository.add(item);
 
-        itemRepository.remove();
+        itemRepository.removeLastItem();
         final List<Item> actualItems = itemRepository.retrieveAllItems();
 
         Assert.assertEquals(0, actualItems.size());
@@ -76,7 +76,7 @@ public class ItemRepositoryTest {
         itemRepository.add(item1);
         itemRepository.add(item2);
 
-        itemRepository.remove();
+        itemRepository.removeLastItem();
         final List<Item> actualItems = itemRepository.retrieveAllItems();
 
         Assert.assertEquals("test1", actualItems.get(0).getContent());
@@ -90,11 +90,27 @@ public class ItemRepositoryTest {
         //arrange
         ItemRepository itemRepository = new ItemRepository();
 
-        itemRepository.remove();
+        itemRepository.removeLastItem();
         final List<Item> actualItems = itemRepository.retrieveAllItems();
 
         Assert.assertEquals(0, actualItems.size());
 
+    }
+
+    @Test
+    public void remove_removes_item_from_the_list() {
+        //arrange
+        Item item = new Item("test");
+        ItemRepository itemRepository = new ItemRepository();
+
+        itemRepository.add(item);
+        final List<Item> actualItems = itemRepository.retrieveAllItems();
+
+        Assert.assertEquals(1, actualItems.size());
+
+        itemRepository.remove(item);
+
+        Assert.assertEquals(0, actualItems.size());
 
     }
 
