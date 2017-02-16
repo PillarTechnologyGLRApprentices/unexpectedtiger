@@ -4,6 +4,7 @@ package com.pillartechnology.unexpectedtiger.model;
 public class Item {
 
     private String content;
+    private String fileName;
 
     public Item() {
 
@@ -36,5 +37,13 @@ public class Item {
         if (content == null) { return Integer.MAX_VALUE; }
 
         return content.hashCode();
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

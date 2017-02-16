@@ -1,119 +1,88 @@
 package com.pillartechnology.unexpectedtiger.repositories;
 
 import com.pillartechnology.unexpectedtiger.model.Item;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
+import static org.junit.Assert.*;
 
 public class ItemRepositoryTest {
+    public static final String DATA_PATH = "/Users/jenniferkron/dev/unexpectedtiger/src/test/java/com/pillartechnology/unexpectedtiger/Data";
 
-    @Test
-    public void retrieveAllItems_returns_empty_list() {
-        //arrange
-        ItemRepository itemRepository = new ItemRepository();
+    ItemRepository itemRepository;
 
-        //act
-        List<Item> actualItems = itemRepository.retrieveAllItems();
-
-        //assert
-        Assert.assertNotNull(actualItems);
+    @Before
+    public void setUp() throws Exception {
+        itemRepository = new ItemRepository(DATA_PATH);
     }
 
-    @Test
-    public void retrieveAllItems_returns_a_list_with_one_item() {
-        //arrange
-        ItemRepository itemRepository = new ItemRepository();
-        Item item = new Item("test");
-
-        //act
-        itemRepository.add(item);
-        List<Item> actualItems = itemRepository.retrieveAllItems();
-
-        //assert
-        Assert.assertEquals("test", actualItems.get(0).getContent());
+    @After
+    public void tearDown() throws Exception {
+        File data = new File(DATA_PATH);
+        FileUtils.cleanDirectory(data);
     }
 
-    @Test
-    public void retrieveAllItems_returns_a_list_with_two_items() {
-        //arrange
-        ItemRepository itemRepository = new ItemRepository();
-        Item item1 = new Item("test");
-        Item item2 = new Item("test2");
+    @Test(expected = RuntimeException.class)
+    public void add_throws_exception_when_content_is_null() throws Exception {
 
-        //act
-        itemRepository.add(item1);
-        itemRepository.add(item2);
-        List<Item> actualItems = itemRepository.retrieveAllItems();
-
-        //assert
-        Assert.assertEquals("test", actualItems.get(0).getContent());
-        Assert.assertEquals("test2", actualItems.get(1).getContent());
+        itemRepository.add(new Item());
     }
 
-    @Test
-    public void removeItems_removes_last_item_from_list() {
-        //arrange
-        ItemRepository itemRepository = new ItemRepository();
+    @Test(expected = RuntimeException.class)
+
+    public void add_throws_exception_when_content_is_empty() throws Exception {
         Item item = new Item();
+        item.setContent("   ");
         itemRepository.add(item);
-
-        itemRepository.removeLastItem();
-        final List<Item> actualItems = itemRepository.retrieveAllItems();
-
-        Assert.assertEquals(0, actualItems.size());
-
-
     }
 
     @Test
-    public void removeItems_removes_last_item_from_two_item_list() {
-        //arrange
-        ItemRepository itemRepository = new ItemRepository();
-        Item item1 = new Item("test1");
-        Item item2 = new Item("test2");
+    public void add_creates_item_file_with_fileName() throws Exception {
+        Item item = new Item("content");
+        //Act
+        Item actualItem = itemRepository.add(item);
 
-        itemRepository.add(item1);
-        itemRepository.add(item2);
+        //Assert
+        String actualFileName = actualItem.getFileName();
+        assertNotNull(actualFileName);
+        assertTrue(actualFileName.contains(".txt"));
+        String[] parts = actualFileName.split("\\.");
+        String name1 = parts[0];
+        boolean matches = name1.matches("[0-9]+");
+        assertTrue(matches);
 
-        itemRepository.removeLastItem();
-        final List<Item> actualItems = itemRepository.retrieveAllItems();
-
-        Assert.assertEquals("test1", actualItems.get(0).getContent());
-
-
-    }
-
-
-    @Test
-    public void removeItems_doesnt_remove_from_empty_list() {
-        //arrange
-        ItemRepository itemRepository = new ItemRepository();
-
-        itemRepository.removeLastItem();
-        final List<Item> actualItems = itemRepository.retrieveAllItems();
-
-        Assert.assertEquals(0, actualItems.size());
-
+        final Item item2 = new Item("content 2");
+        Item actualItem2 = itemRepository.add(item2);
+        parts = actualItem2.getFileName().split("\\.");
+        String name2 = parts[0];
+        matches = name2.matches("[0-9]+");
+        assertTrue(matches);
+        assertFalse(name1.equals(name2));
     }
 
     @Test
-    public void remove_removes_item_from_the_list() {
-        //arrange
-        Item item = new Item("test");
-        ItemRepository itemRepository = new ItemRepository();
+    public void add_writes_a_file_that_isnt_null() throws Exception {
+        //Arrange
+        final Item item = new Item("content");
 
-        itemRepository.add(item);
-        final List<Item> actualItems = itemRepository.retrieveAllItems();
+        //Act
+        Item actualItem = itemRepository.add(item);
 
-        Assert.assertEquals(1, actualItems.size());
+        final File actualFile = new File(DATA_PATH + File.separator + actualItem.getFileName());
+        final BufferedReader bufferedReader = new BufferedReader(new FileReader(actualFile));
+        String line = bufferedReader.readLine();
 
-        itemRepository.remove(item);
 
-        Assert.assertEquals(0, actualItems.size());
-
+        //Assert
+        Assert.assertTrue(actualFile.exists());
+        Assert.assertEquals("content", line);
     }
-
-
 
 }
