@@ -3,9 +3,7 @@ package com.pillartechnology.unexpectedtiger.repositories;
 import com.pillartechnology.unexpectedtiger.model.Item;
 import org.springframework.stereotype.Repository;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -34,26 +32,20 @@ public class ItemRepository {
         item.setFileName(fileName);
 
         createFileWithItemContent(item);
-
-        todoItems.add(item);
         return item;
     }
 
-    private void createFileWithItemContent(Item item) throws IOException {
-        File file = new File(path + File.separator + item.getFileName());
-        try (FileWriter fileWriter = new FileWriter(file)){
-            file.createNewFile();
-            fileWriter.write(item.getContent());
+    public List<Item> retrieveAllItems() throws IOException {
+        File dataDir = new File(path);
+        final File[] allItemFiles = dataDir.listFiles();
+        final ArrayList<Item> items = new ArrayList<>();
+
+        for (File itemFile : allItemFiles) {
+            final BufferedReader bufferedReader = new BufferedReader(new FileReader(itemFile));
+            final String content = bufferedReader.readLine();
+            items.add(new Item(content));
         }
-    }
-
-    private String generateRandomNumberToString() {
-        int n = RANDOM.nextInt(100000);
-        return String.valueOf(n);
-    }
-
-    public List<Item> retrieveAllItems() {
-        return todoItems;
+        return items;
     }
 
     public void removeLastItem() {
@@ -65,9 +57,20 @@ public class ItemRepository {
 
     public void remove(Item item) {
         todoItems.remove(item);
-        System.out.println("removed");
     }
 
+    private void createFileWithItemContent(Item item) throws IOException {
+        File file = new File(path + File.separator + item.getFileName());
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            file.createNewFile();
+            fileWriter.write(item.getContent());
+        }
+    }
+
+    private String generateRandomNumberToString() {
+        int n = RANDOM.nextInt(100000);
+        return String.valueOf(n);
+    }
 
 }
 
