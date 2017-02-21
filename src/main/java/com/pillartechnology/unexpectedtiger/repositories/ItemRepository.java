@@ -9,15 +9,16 @@ import java.util.List;
 
 @Repository
 public class ItemRepository {
-    private ItemService itemService = new ItemService();
+    private ItemService itemService;
 
-    public ItemRepository() {
+    public ItemRepository(ItemService itemService) {
+        this.itemService = itemService;
     }
 
     public Item add(Item item) throws IOException {
-        if (item.getContent() == null || item.getContent().trim().isEmpty()) {
-            throw new RuntimeException();
-        }
+//        if (item.getContent() == null || item.getContent().trim().isEmpty()) {
+//            throw new RuntimeException();
+//        }
 
         return itemService.addItem(item);
     }
