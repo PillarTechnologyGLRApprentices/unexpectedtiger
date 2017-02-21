@@ -4,27 +4,30 @@ import com.pillartechnology.unexpectedtiger.ItemService;
 import com.pillartechnology.unexpectedtiger.model.Item;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 
 public class ItemRepositoryTest {
 
+    @Mock
     private ItemService mockItemService;
+
+    @InjectMocks
     private ItemRepository itemRepository;
 
     @Before
     public void setUp() throws Exception {
-        mockItemService = mock(ItemService.class);
-        itemRepository = new ItemRepository(mockItemService);
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test(expected = RuntimeException.class)
     public void add_throws_exception_when_item_content_is_null() throws Exception {
         //Arrange
-        ItemService itemService = new ItemService();
-        final ItemRepository itemRepository = new ItemRepository(itemService);
+        final ItemRepository itemRepository = new ItemRepository();
         final Item item = new Item();
 
         //Act

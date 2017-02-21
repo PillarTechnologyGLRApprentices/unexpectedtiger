@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 
@@ -28,22 +30,22 @@ public class IndexController {
         itemRepository.add(item);
         return "redirect:/";
     }
-//
+
 //    @RequestMapping(value= "/add", method= RequestMethod.POST, params="action=removeLastItem")
 //    String removeLastItem() {
 //        itemRepository.removeLastItem();
 //        return "redirect:/";
 //    }
-//
-//    @RequestMapping(value= "/remove", method= RequestMethod.GET)
-//    String remove(@RequestParam("fileName") String fileName) throws IOException {
-//        Item item = new Item();
-//        System.out.println(fileName);
-//        item.setFileName(fileName);
-//        itemRepository.remove(item);
-//        return "redirect:/";
-//    }
-//
+
+    @RequestMapping(value= "/remove", method= RequestMethod.GET)
+    String remove(@RequestParam("fileName") String fileName) throws IOException {
+        Item item = new Item();
+        System.out.println(fileName);
+        item.setFileName(fileName);
+        itemRepository.remove(item);
+        return "redirect:/";
+    }
+
 
 
 

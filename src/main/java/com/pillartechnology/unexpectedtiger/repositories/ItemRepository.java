@@ -2,6 +2,7 @@ package com.pillartechnology.unexpectedtiger.repositories;
 
 import com.pillartechnology.unexpectedtiger.ItemService;
 import com.pillartechnology.unexpectedtiger.model.Item;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -9,16 +10,15 @@ import java.util.List;
 
 @Repository
 public class ItemRepository {
+
+    @Autowired
     private ItemService itemService;
 
-    public ItemRepository(ItemService itemService) {
-        this.itemService = itemService;
-    }
 
     public Item add(Item item) throws IOException {
-//        if (item.getContent() == null || item.getContent().trim().isEmpty()) {
-//            throw new RuntimeException();
-//        }
+        if (item.getContent() == null || item.getContent().trim().isEmpty()) {
+            throw new RuntimeException();
+        }
 
         return itemService.addItem(item);
     }

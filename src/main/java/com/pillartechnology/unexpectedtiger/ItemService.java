@@ -1,18 +1,22 @@
 package com.pillartechnology.unexpectedtiger;
 
 import com.pillartechnology.unexpectedtiger.model.Item;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Service
 public class ItemService {
     //    private String path = "src/main/resources/item_files";
     private File dataDir;
     private List<Item> todoItems = new ArrayList<>();
     private String path = "/Users/jenniferkron/dev/unexpectedtiger/src/test/java/com/pillartechnology/unexpectedtiger/Data";
     public static final Random RANDOM = new Random();
+
+
 
     public void setDataDir(File dataDir) {
         this.dataDir = dataDir;
