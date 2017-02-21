@@ -4,11 +4,11 @@ import com.pillartechnology.unexpectedtiger.model.Item;
 
 public interface ItemService {
 
-//    Iterable<Item> listAllProducts();
+    Iterable<Item> listAllItems();
 
-//    Item getItemById(Integer id);
+    Item getItemById(Integer id);
 
     Item saveItem(Item item);
 
-//    void deleteItem(Integer id);
+    void deleteItem(Integer id);
 }

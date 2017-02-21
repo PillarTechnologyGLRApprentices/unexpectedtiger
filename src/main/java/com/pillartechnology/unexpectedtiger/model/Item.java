@@ -1,9 +1,6 @@
 package com.pillartechnology.unexpectedtiger.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Item {
@@ -14,6 +11,9 @@ public class Item {
 
     private String content;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Category category;
+
     public Item() {
 
     }
@@ -22,9 +22,10 @@ public class Item {
         this.content = content;
     }
 
-    public Item(Integer id, String content) {
+    public Item(Integer id, String content, Category category) {
         this.id = id;
         this.content = content;
+        this.category = category;
     }
 
     public Integer getId() {
@@ -39,5 +40,11 @@ public class Item {
         this.content = content;
     }
 
+    public Category getCategory() {
+        return category;
+    }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
