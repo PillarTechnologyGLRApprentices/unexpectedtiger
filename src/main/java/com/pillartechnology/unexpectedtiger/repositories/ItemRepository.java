@@ -11,14 +11,6 @@ import java.util.List;
 public class ItemRepository {
     private ItemService itemService = new ItemService();
 
-//    public ItemRepository(String path) {
-//        this.path = path;
-//    }
-
-    public void setItemService(ItemService itemService) {
-        this.itemService = itemService;
-    }
-
     public ItemRepository() {
     }
 
@@ -30,21 +22,17 @@ public class ItemRepository {
         return itemService.addItem(item);
     }
 
-
     public List<Item> retrieveAllItems() throws IOException {
         return itemService.retrieveItems();
     }
-
 
     public void removeLast() {
         itemService.removeLastItem();
     }
 
-
     public void remove(Item item) throws IOException {
         itemService.removeItem(item);
     }
-
 
 
 }
