@@ -1,14 +1,14 @@
 package com.pillartechnology.unexpectedtiger.services;
 
-import com.pillartechnology.unexpectedtiger.model.Item;
+import com.pillartechnology.unexpectedtiger.entity.ItemEntity;
 
 public interface ItemService {
 
-    Iterable<Item> listAllItems();
+    Iterable<ItemEntity> listAllItems();
 
-    Item getItemById(Integer id);
+    ItemEntity getItemById(Integer id);
 
-    Item saveItem(Item item);
+    ItemEntity saveItem(ItemEntity itemEntity);
 
     void deleteItem(Integer id);
 }

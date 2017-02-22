@@ -1,6 +1,6 @@
 package com.pillartechnology.unexpectedtiger.loader;
 
-import com.pillartechnology.unexpectedtiger.model.Category;
+import com.pillartechnology.unexpectedtiger.entity.CategoryEntity;
 import com.pillartechnology.unexpectedtiger.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -20,13 +20,13 @@ public class CategoryLoader implements ApplicationListener<ContextRefreshedEvent
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        Category categoryWork = new Category("Work");
-        categoryRepository.save(categoryWork);
+        CategoryEntity categoryEntityWork = new CategoryEntity("Work");
+        categoryRepository.save(categoryEntityWork);
 
-        Category categoryPersonal = new Category("Personal");
-        categoryRepository.save(categoryPersonal);
+        CategoryEntity categoryEntityPersonal = new CategoryEntity("Personal");
+        categoryRepository.save(categoryEntityPersonal);
 
-        Category categoryOther = new Category("Other");
-        categoryRepository.save(categoryOther);
+        CategoryEntity categoryEntityOther = new CategoryEntity("Other");
+        categoryRepository.save(categoryEntityOther);
     }
 }

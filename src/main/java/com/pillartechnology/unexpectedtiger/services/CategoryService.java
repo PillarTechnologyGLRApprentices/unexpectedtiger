@@ -1,10 +1,11 @@
 package com.pillartechnology.unexpectedtiger.services;
 
-import com.pillartechnology.unexpectedtiger.model.Category;
-import com.pillartechnology.unexpectedtiger.model.Item;
+import com.pillartechnology.unexpectedtiger.entity.CategoryEntity;
 
 public interface CategoryService {
 
-    Iterable<Category> listAllCategories();
+    Iterable<CategoryEntity> listAllCategories();
+
+    CategoryEntity getCategoryById(Integer id);
 
 }

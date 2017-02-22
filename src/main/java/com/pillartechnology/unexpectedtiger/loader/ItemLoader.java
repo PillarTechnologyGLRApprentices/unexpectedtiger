@@ -1,7 +1,5 @@
 package com.pillartechnology.unexpectedtiger.loader;
 
-import com.pillartechnology.unexpectedtiger.model.Category;
-import com.pillartechnology.unexpectedtiger.model.Item;
 import com.pillartechnology.unexpectedtiger.repositories.CategoryRepository;
 import com.pillartechnology.unexpectedtiger.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +26,10 @@ public class ItemLoader implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-//        Item sampleItem = new Item();
+//        ItemEntity sampleItem = new ItemEntity();
 //        sampleItem.setContent("This is a sample todo");
-//        Category categoryOne = categoryRepository.findOne(1);
-//        sampleItem.setCategory(categoryOne);
+//        CategoryEntity categoryOne = categoryRepository.findOne(1);
+//        sampleItem.setCategoryEntity(categoryOne);
 //        itemRepository.save(sampleItem);
     }
-}
+            }

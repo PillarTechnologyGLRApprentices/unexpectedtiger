@@ -1,6 +1,6 @@
 package com.pillartechnology.unexpectedtiger.services;
 
-import com.pillartechnology.unexpectedtiger.model.Item;
+import com.pillartechnology.unexpectedtiger.entity.ItemEntity;
 import com.pillartechnology.unexpectedtiger.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,22 +16,22 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Iterable<Item> listAllItems() {
+    public Iterable<ItemEntity> listAllItems() {
         return itemRepository.findAll();
     }
 
     @Override
-    public Item getItemById(Integer id) {
+    public ItemEntity getItemById(Integer id) {
         return itemRepository.findOne(id);
     }
 
     @Override
-    public Item saveItem(Item item) {
-        return itemRepository.save(item);
+    public ItemEntity saveItem(ItemEntity itemEntity) {
+        return itemRepository.save(itemEntity);
     }
 
     @Override
     public void deleteItem(Integer id) {
-        itemRepository.delete(id);
+         itemRepository.delete(id);
     }
 }

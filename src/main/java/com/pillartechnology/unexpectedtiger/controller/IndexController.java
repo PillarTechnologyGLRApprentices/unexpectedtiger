@@ -1,7 +1,7 @@
 package com.pillartechnology.unexpectedtiger.controller;
 
-import com.pillartechnology.unexpectedtiger.model.Category;
-import com.pillartechnology.unexpectedtiger.model.Item;
+import com.pillartechnology.unexpectedtiger.entity.CategoryEntity;
+import com.pillartechnology.unexpectedtiger.entity.ItemEntity;
 import com.pillartechnology.unexpectedtiger.services.CategoryService;
 import com.pillartechnology.unexpectedtiger.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +29,17 @@ public class IndexController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     String index(Model model) {
-        model.addAttribute("items", itemService.listAllItems());
-        model.addAttribute("item", new Item());
-        model.addAttribute("category", new Category());
-        model.addAttribute("categories", categoryService.listAllCategories());
+        model.addAttribute("itemsEntities", itemService.listAllItems());
+        model.addAttribute("itemEntity", new ItemEntity());
+        model.addAttribute("categoryEntity", new CategoryEntity());
+        model.addAttribute("categoryEntities", categoryService.listAllCategories());
         return "index";
     }
 
     @RequestMapping("/add")
-    String add(Item item, Category category) {
-        item.setCategory(category);
-        itemService.saveItem(item);
+    String add(ItemEntity itemEntity, CategoryEntity categoryEntity) {
+        itemEntity.setCategoryEntity(categoryEntity);
+        itemService.saveItem(itemEntity);
         return "redirect:/";
     }
 
