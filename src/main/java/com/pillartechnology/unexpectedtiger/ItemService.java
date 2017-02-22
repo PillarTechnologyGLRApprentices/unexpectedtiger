@@ -25,7 +25,7 @@ public class ItemService {
     public Item addItem(Item item) throws IOException {
         String randomNumberString = generateRandomNumberToString();
         final String fileName = randomNumberString + ".txt";
-        item.setFileName(fileName);
+        item.setId(fileName);
 
         createFileWithItemContent(item);
         return item;
@@ -43,7 +43,7 @@ public class ItemService {
     }
 
     public void removeItem(Item item) {
-        final String fileName = item.getFileName();
+        final String fileName = item.getId();
         final File file = new File(path + File.separator + fileName);
         if (!file.exists()) {
             throw new RuntimeException();
@@ -59,7 +59,7 @@ public class ItemService {
 
 
     private void createFileWithItemContent(Item item) throws IOException {
-        File file = new File(path + File.separator + item.getFileName());
+        File file = new File(path + File.separator + item.getId());
         try (FileWriter fileWriter = new FileWriter(file)) {
             file.createNewFile();
             fileWriter.write(item.getContent());
@@ -70,7 +70,7 @@ public class ItemService {
         final BufferedReader bufferedReader = new BufferedReader(new FileReader(itemFile));
         final String content = bufferedReader.readLine();
         final Item item = new Item(content);
-        item.setFileName(itemFile.getName());
+        item.setId(itemFile.getName());
         return item;
     }
 

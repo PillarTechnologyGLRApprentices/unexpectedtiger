@@ -13,5 +13,6 @@ public class UnexpectedTigerApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(UnexpectedTigerApplication.class, args);
+
 	}
 }

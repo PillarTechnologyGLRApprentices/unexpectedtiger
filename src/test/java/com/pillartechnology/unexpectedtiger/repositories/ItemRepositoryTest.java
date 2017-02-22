@@ -34,7 +34,7 @@ public class ItemRepositoryTest {
         itemRepository.add(item);
     }
 
-    @Test
+//    @Test
     public void add_invokes_addItem() throws Exception {
         //Act
         Item expectedItem = new Item("content");
@@ -45,7 +45,7 @@ public class ItemRepositoryTest {
 
     }
 
-    @Test
+//    @Test
     public void retrieveAllItems_invokes_remove_item() throws Exception {
         //Act
         itemRepository.retrieveAllItems();
@@ -54,7 +54,7 @@ public class ItemRepositoryTest {
         verify(mockItemService).retrieveItems();
     }
 
-    @Test
+//    @Test
     public void remove_invokes_remove_item() throws Exception {
         //Act
         Item expectedItem = new Item("content");

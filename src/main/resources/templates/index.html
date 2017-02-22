@@ -22,7 +22,7 @@
 <div th:each="item : ${todoItems}" th:object="${item}">
     <input type="hidden" th:field="*{content}" th:value="${item.content}"/>
     <div th:text="${item.content}"> Hello World</div>
-    <a th:href="@{'/remove'(fileName=${item.fileName})}">remove</a>
+    <a th:href="@{'/remove'(id=${item.id})}">remove</a>
 </div>
 
 

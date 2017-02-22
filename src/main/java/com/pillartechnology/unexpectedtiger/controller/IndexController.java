@@ -41,7 +41,7 @@ public class IndexController {
     String remove(@RequestParam("fileName") String fileName) throws IOException {
         Item item = new Item();
         System.out.println(fileName);
-        item.setFileName(fileName);
+        item.setId(fileName);
         itemRepository.remove(item);
         return "redirect:/";
     }
