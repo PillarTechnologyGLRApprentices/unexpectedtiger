@@ -30,12 +30,7 @@ public class IndexController {
         itemRepository.add(item);
         return "redirect:/";
     }
-
-//    @RequestMapping(value= "/add", method= RequestMethod.POST, params="action=removeLastItem")
-//    String removeLastItem() {
-//        itemRepository.removeLastItem();
-//        return "redirect:/";
-//    }
+    
 
     @RequestMapping(value= "/remove", method= RequestMethod.GET)
     String remove(@RequestParam("id") String id) throws IOException {
@@ -44,22 +39,3 @@ public class IndexController {
         itemRepository.remove(item);
         return "redirect:/";
     }
-
-
-
-
-
-
-
-
-
-    //Original way of adding two things to the arraylist and passing to index.html
-//    @RequestMapping("/")
-//    String index(ModelMap model) {
-//        List<Item> todoItems = new ArrayList<>();
-//        todoItems.add("Item1");
-//        todoItems.add("Item2");
-//        model.put("todoItems", todoItems);
-//        return "index";
-//    }
-}
