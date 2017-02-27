@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class ItemEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column
     private String content;
@@ -15,12 +15,12 @@ public class ItemEntity {
 
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id = id.intValue();
     }
 
     public String getContent() {

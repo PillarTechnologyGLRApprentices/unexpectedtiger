@@ -38,10 +38,9 @@ public class IndexController {
 //    }
 
     @RequestMapping(value= "/remove", method= RequestMethod.GET)
-    String remove(@RequestParam("fileName") String fileName) throws IOException {
+    String remove(@RequestParam("id") String id) throws IOException {
         Item item = new Item();
-        System.out.println(fileName);
-        item.setId(fileName);
+        item.setId(id);
         itemRepository.remove(item);
         return "redirect:/";
     }
