@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>Todo List</title>
 </head>
 <body>
 
@@ -11,7 +11,7 @@
 <h2>Add to your list of things todo</h2>
 <form th:action="@{/add}" method="post" th:object="${item}">
 
-    <input type="text" name="entryfield" value="Walk the dog" th:field="${item.content}"/>
+    <input id="todoInput" name="entryfield" value="Walk the dog" th:field="${item.content}"/>
     <input type="submit" value="Add to your list."/>
     <button type="submit" name="action" value="removeLastItem">Remove Last Item</button>
 
