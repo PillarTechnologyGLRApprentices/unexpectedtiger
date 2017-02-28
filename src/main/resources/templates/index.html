@@ -12,7 +12,7 @@
 <form th:action="@{/add}" method="post" th:object="${item}">
 
     <input id="todoInput" name="entryfield" value="Walk the dog" th:field="${item.content}"/>
-    <input type="submit" value="Add to your list."/>
+    <input id="add" type="submit" value="Add to your list."/>
     <button type="submit" name="action" value="removeLastItem">Remove Last Item</button>
 
 </form>
@@ -21,7 +21,7 @@
 <h2>Your list of things todo</h2>
 <div th:each="item : ${todoItems}" th:object="${item}">
     <input type="hidden" th:field="*{content}" th:value="${item.content}"/>
-    <div th:text="${item.content}"> Hello World</div>
+    <div id="todos" th:text="${item.content}"> Hello World</div>
     <a th:href="@{'/remove'(id=${item.id})}">remove</a>
 </div>
 
