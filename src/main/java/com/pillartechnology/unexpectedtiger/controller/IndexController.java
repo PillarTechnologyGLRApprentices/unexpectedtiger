@@ -1,5 +1,6 @@
 package com.pillartechnology.unexpectedtiger.controller;
 
+import com.pillartechnology.unexpectedtiger.entities.ItemEntity;
 import com.pillartechnology.unexpectedtiger.model.Item;
 import com.pillartechnology.unexpectedtiger.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,22 +21,23 @@ public class IndexController {
     @RequestMapping("/")
     String index(ModelMap model) throws IOException {
 
-      model.put("todoItems", itemRepository.retrieveAllItems());
+        model.put("todoItems", itemRepository.retrieveAllItems());
         model.addAttribute("item", new Item());
         return "index";
     }
 
     @RequestMapping("/add")
-    String add(Item item) throws IOException {
+    String add(Item item, ItemEntity itemEntity) throws IOException {
         itemRepository.add(item);
         return "redirect:/";
     }
-    
 
-    @RequestMapping(value= "/remove", method= RequestMethod.GET)
+
+    @RequestMapping(value = "/remove", method = RequestMethod.GET)
     String remove(@RequestParam("id") String id) throws IOException {
         Item item = new Item();
         item.setId(id);
         itemRepository.remove(item);
         return "redirect:/";
     }
+}

@@ -17,44 +17,34 @@ public class ItemRepository {
 
 
     public Item add(Item item) throws IOException {
-        if (item.getContent() == null || item.getContent().trim().isEmpty()) {
+        if (item.getContent() == null) {
             throw new RuntimeException();
         }
-        ItemEntity itemEntity = convertItemToItemEntity(item);
+        ItemEntity itemEntity = new ItemEntity(item.getContent());
         itemEntity = itemDBService.save(itemEntity);
-        Item addedItem = convertItemEntityToItem(itemEntity);
-        return addedItem;
+
+        item.setId(String.valueOf(itemEntity.getId()));
+
+        return item;
     }
 
-
     public List<Item> retrieveAllItems() throws IOException {
-        final Iterable<ItemEntity> itemEntities = itemDBService.findAll();
-        List<Item> items = new ArrayList<>();
-        for(ItemEntity itemEntity: itemEntities) {
-            Item item = convertItemEntityToItem(itemEntity);
+        final Iterable<ItemEntity> entities = itemDBService.findAll();
+        final List<Item> items = new ArrayList<>();
+        for (ItemEntity entity : entities) {
+            final Item item = new Item();
+            item.setContent(entity.getContent());
+            item.setId(String.valueOf(entity.getId()));
             items.add(item);
         }
+
         return items;
     }
 
     public void remove(Item item) throws IOException {
-        itemDBService.delete(convertItemToItemEntity(item));
+        itemDBService.delete(Integer.valueOf(item.getId()));
     }
 
-    private ItemEntity convertItemToItemEntity(Item item) {
-        ItemEntity itemEntity = new ItemEntity();
-        itemEntity.setContent(item.getContent());
-        if (item.getId() != null) {
-            itemEntity.setId(Long.valueOf(item.getId()));
-        }
-        return itemEntity;
-    }
-
-    private Item convertItemEntityToItem(ItemEntity itemEntity) {
-        Item addedItem = new Item(itemEntity.getContent());
-        addedItem.setId(String.valueOf(itemEntity.getId()));
-        return addedItem;
-    }
 
 }
 

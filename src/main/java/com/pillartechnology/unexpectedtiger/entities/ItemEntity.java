@@ -15,6 +15,10 @@ public class ItemEntity {
 
     }
 
+    public ItemEntity(String content) {
+        this.content = content;
+    }
+
     public int getId() {
         return id;
     }
