@@ -11,7 +11,6 @@ import java.util.List;
 public class SeleniumTest {
     private static WebDriver driver;
 
-
     @BeforeClass
     public static void setUp() throws Exception {
         System.setProperty("webdriver.chrome.driver", "/Users/jenniferkron/dev/practice/javascript/node_modules/chromedriver/lib/chromedriver/chromedriver");
@@ -27,10 +26,7 @@ public class SeleniumTest {
 
     @Test
     public void todoIsAddedToListAndPersisted() throws InterruptedException {
-        WebElement input = driver.findElement(By.id("todoInput"));
-        input.sendKeys("test Todo");
-        WebElement add = driver.findElement(By.id("add"));
-        add.click();
+        addTodoWithContent("test Todo");
         driver.navigate().refresh();
         WebElement todos = driver.findElement(By.id("todos"));
         Assert.assertTrue("testTodo should be added to todos",
@@ -39,10 +35,7 @@ public class SeleniumTest {
 
     @Test
     public void todoIsRemovedFromListAndPersisted() throws InterruptedException {
-        WebElement input = driver.findElement(By.id("todoInput"));
-        input.sendKeys("test Todo");
-        WebElement add = driver.findElement(By.id("add"));
-        add.click();
+        addTodoWithContent("test Todo");
         driver.navigate().refresh();
         final WebElement firstTodoRemove = driver.findElements(By.className("remove")).get(0);
         firstTodoRemove.click();
@@ -55,21 +48,11 @@ public class SeleniumTest {
 
     @Test
     public void todoIsRemovedFromListWhenMultipleItemsAdded() throws InterruptedException {
-        WebElement input = driver.findElement(By.id("todoInput"));
-        input.sendKeys("test Todo1");
-        WebElement add = driver.findElement(By.id("add"));
-        add.click();
-
-        WebElement input2 = driver.findElement(By.id("todoInput"));
-
-        input2.sendKeys("test Todo2");
-        WebElement add2 = driver.findElement(By.id("add"));
-        add2.click();
+        addTodoWithContent("test Todo1");
+        addTodoWithContent("test Todo2");
 
         final WebElement firstTodoRemove = driver.findElements(By.className("remove")).get(0);
-
         firstTodoRemove.click();
-
         final List<WebElement> todos = driver.findElements(By.className("todo"));
 
         Assert.assertEquals(1, todos.size());
@@ -77,10 +60,11 @@ public class SeleniumTest {
 
     }
 
-    @AfterClass
-    public static void tearDownDriver() throws Exception {
-        driver.close();
-        driver.quit();
+    private void addTodoWithContent(String content) {
+        WebElement input = driver.findElement(By.id("todoInput"));
+        input.sendKeys(content);
+        WebElement add = driver.findElement(By.id("add"));
+        add.click();
     }
 
     @After
@@ -90,5 +74,11 @@ public class SeleniumTest {
             remove.click();
         }
 
+    }
+
+    @AfterClass
+    public static void tearDownDriver() throws Exception {
+        driver.close();
+        driver.quit();
     }
 }
