@@ -19,10 +19,12 @@
 
 
 <h2>Your list of things todo</h2>
-<div th:each="item : ${todoItems}" th:object="${item}">
-    <input type="hidden" th:field="*{content}" th:value="${item.content}"/>
-    <div id="todos" th:text="${item.content}"> Hello World</div>
-    <a th:href="@{'/remove'(id=${item.id})}">remove</a>
+<div id="todos">
+    <div th:each="item : ${todoItems}" th:object="${item}">
+        <input type="hidden" th:field="*{content}" th:value="${item.content}"/>
+        <div class="todo" th:text="${item.content}"> Hello World</div>
+        <a class="remove" th:href="@{'/remove'(id=${item.id})}">remove</a>
+    </div>
 </div>
 
 

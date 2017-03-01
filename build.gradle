@@ -40,6 +40,8 @@ dependencies {
     compile ('org.hashids:hashids:1.0.1')
     compile ('com.h2database:h2:1.4.191')
 	compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.2.0'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '3.2.0'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-support', version: '3.2.0'
 
 }
 
