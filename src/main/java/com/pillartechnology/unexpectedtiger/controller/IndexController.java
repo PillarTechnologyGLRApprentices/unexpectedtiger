@@ -20,7 +20,6 @@ public class IndexController {
 
     @RequestMapping("/")
     String index(ModelMap model) throws IOException {
-
         model.put("todoItems", itemRepository.retrieveAllItems());
         model.addAttribute("item", new Item());
         return "index";

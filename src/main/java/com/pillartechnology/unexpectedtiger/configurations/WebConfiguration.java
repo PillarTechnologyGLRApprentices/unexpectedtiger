@@ -11,7 +11,6 @@ public class WebConfiguration {
     ServletRegistrationBean h2servletRegistration(){
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
         registrationBean.addUrlMappings("/console/*");
-        System.out.println("I'm here!!!");
         return registrationBean;
     }
 }

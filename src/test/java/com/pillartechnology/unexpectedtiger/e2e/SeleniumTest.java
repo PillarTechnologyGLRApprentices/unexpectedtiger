@@ -11,17 +11,17 @@ import java.util.List;
 public class SeleniumTest {
     private static WebDriver driver;
 
+    @Before
+    public void setUp() throws Exception {
+        removeAllTodos();
+
+    }
+
     @BeforeClass
-    public static void setUp() throws Exception {
+    public static void setUpDriver() throws Exception {
         System.setProperty("webdriver.chrome.driver", "/Users/jenniferkron/dev/practice/javascript/node_modules/chromedriver/lib/chromedriver/chromedriver");
         driver = new ChromeDriver();
         driver.navigate().to("http://localhost:8080");
-    }
-
-    @Test
-    public void titleIsTodoList() throws InterruptedException {
-        Assert.assertTrue("title should start with Todo",
-                driver.getTitle().startsWith("Todo List"));
     }
 
     @Test
@@ -51,8 +51,8 @@ public class SeleniumTest {
         addTodoWithContent("test Todo1");
         addTodoWithContent("test Todo2");
 
-        final WebElement firstTodoRemove = driver.findElements(By.className("remove")).get(0);
-        firstTodoRemove.click();
+        final WebElement firstTodoRemoveButton = driver.findElements(By.className("remove")).get(0);
+        firstTodoRemoveButton.click();
         final List<WebElement> todos = driver.findElements(By.className("todo"));
 
         Assert.assertEquals(1, todos.size());
@@ -67,12 +67,16 @@ public class SeleniumTest {
         add.click();
     }
 
-    @After
-    public void tearDown() throws Exception {
+    private void removeAllTodos() {
         final List<WebElement> removeLinks = driver.findElements(By.linkText("remove"));
         for (WebElement remove : removeLinks) {
             remove.click();
         }
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        removeAllTodos();
 
     }
 
