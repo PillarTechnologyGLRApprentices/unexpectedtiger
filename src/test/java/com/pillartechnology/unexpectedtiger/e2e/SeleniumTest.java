@@ -1,24 +1,19 @@
 package com.pillartechnology.unexpectedtiger.e2e;
 
 import org.junit.*;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@TestPropertySource("/application-test.properties")
 public class SeleniumTest {
     private static WebDriver driver;
 
     @Before
     public void setUp() throws Exception {
-//        removeAllTodos();
+        removeAllTodos();
 
     }
 
@@ -81,7 +76,7 @@ public class SeleniumTest {
 
     @After
     public void tearDown() throws Exception {
-//        removeAllTodos();
+        removeAllTodos();
 
     }
 
