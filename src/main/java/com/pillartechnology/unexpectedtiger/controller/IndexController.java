@@ -26,15 +26,15 @@ public class IndexController {
     }
 
     @RequestMapping("/add")
-    String add(Item item, ItemEntity itemEntity) throws IOException {
-        itemRepository.add(item);
+    String add(ItemEntity itemEntity) throws IOException {
+        itemRepository.add(itemEntity);
         return "redirect:/";
     }
 
 
     @RequestMapping(value = "/remove", method = RequestMethod.GET)
-    String remove(@RequestParam("id") String id) throws IOException {
-        Item item = new Item();
+    String remove(@RequestParam("id") Long id) throws IOException {
+        ItemEntity item = new ItemEntity();
         item.setId(id);
         itemRepository.remove(item);
         return "redirect:/";

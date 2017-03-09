@@ -21,7 +21,7 @@ public class SeleniumTest {
     public static void setUpDriver() throws Exception {
         System.setProperty("webdriver.chrome.driver", "/Users/jenniferkron/dev/practice/javascript/node_modules/chromedriver/lib/chromedriver/chromedriver");
         driver = new ChromeDriver();
-        driver.navigate().to("http://localhost:8080");
+        driver.navigate().to("http://localhost:8090");
     }
 
     @Test

@@ -1,7 +1,8 @@
 package com.pillartechnology.unexpectedtiger.repositories;
 
+import com.google.common.collect.Lists;
 import com.pillartechnology.unexpectedtiger.entities.ItemEntity;
-import com.pillartechnology.unexpectedtiger.model.Item;
+import com.pillartechnology.unexpectedtiger.services.ItemDBServiceImpl;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,10 +23,11 @@ import static org.mockito.Mockito.when;
 public class ItemRepositoryTest {
 
     @Mock
-    private ItemDBService mockItemDBService;
+    private ItemDBServiceImpl mockItemDBServiceImpl;
 
     @InjectMocks
     private ItemRepository itemRepository;
+
 
     @Before
     public void setUp() throws Exception {
@@ -35,8 +37,8 @@ public class ItemRepositoryTest {
     @Test(expected = RuntimeException.class)
     public void add_throws_exception_when_item_content_is_null() throws Exception {
         //Arrange
-        final ItemRepository itemRepository = new ItemRepository();
-        final Item item = new Item();
+        final ItemRepository itemRepository = new ItemRepository(mockItemDBServiceImpl);
+        final ItemEntity item = new ItemEntity();
 
         //Act
         itemRepository.add(item);
@@ -46,16 +48,14 @@ public class ItemRepositoryTest {
     public void add_invokes_save_on_itemDBService() throws Exception {
         //Arrange
         final String expected_content = "content";
-        Item item = new Item(expected_content);
-        ItemEntity entity = new ItemEntity();
-        entity.setContent(expected_content);
-        entity.setId(200l);
-        when(mockItemDBService.save(Mockito.any(ItemEntity.class))).thenReturn(entity);
+        ItemEntity item = new ItemEntity(expected_content);
+        item.setId(200L);
+        when(mockItemDBServiceImpl.save(Mockito.any(ItemEntity.class))).thenReturn(item);
 
         //Act
-        final Item result = itemRepository.add(item);
+        final ItemEntity result = itemRepository.add(item);
 
-        assertThat(result.getId(), is("200"));
+        assertThat(result.getId(), is(200));
         assertThat(result.getContent(), is(expected_content));
     }
 
@@ -64,52 +64,45 @@ public class ItemRepositoryTest {
         //Arrange
         ItemEntity itemEntity = new ItemEntity();
         itemEntity.setContent("content");
-        itemEntity.setId(200l);
+        itemEntity.setId(200L);
         List<ItemEntity> items = new ArrayList<>();
         items.add(itemEntity);
-        when(mockItemDBService.findAll()).thenReturn(items);
+        when(mockItemDBServiceImpl.findAll()).thenReturn(items);
 
         //Act
-        final List<Item> result = itemRepository.retrieveAllItems();
+        final Iterable<ItemEntity> result = itemRepository.retrieveAllItems();
+        List<ItemEntity> listResult = Lists.newArrayList(result);
 
         //Assert
-        verify(mockItemDBService).findAll();
-        assertThat(result.size(), is(1));
-        final Item item = result.get(0);
+        verify(mockItemDBServiceImpl).findAll();
+        assertThat(listResult.size(), is(1));
+        final ItemEntity item = listResult.get(0);
         assertThat(item.getContent(), is("content"));
-        assertThat(item.getId(), is("200"));
+        assertThat(item.getId(), is(200));
     }
 
     @Test
     public void retrieveAllItems_returns_two_items() throws Exception {
         //Arrange
-        final Item item1 = new Item();
+        final ItemEntity item1 = new ItemEntity();
         item1.setContent("content");
-        item1.setId("200");
-         final Item item2 = new Item();
+        item1.setId(200L);
+         final ItemEntity item2 = new ItemEntity();
         item2.setContent("content1");
-        item2.setId("300");
-
-
-        final ItemEntity itemEntity1 = new ItemEntity();
-        final ItemEntity itemEntity2 = new ItemEntity();
-
-        itemEntity1.setContent("content");
-        itemEntity1.setId(200l);
-        itemEntity2.setContent("content1");
-        itemEntity2.setId(300l);
+        item2.setId(300L);
 
         List<ItemEntity> items = new ArrayList<>();
-        items.add(itemEntity1);
-        items.add(itemEntity2);
-        when(mockItemDBService.findAll()).thenReturn(items);
+        items.add(item1);
+        items.add(item2);
+        when(mockItemDBServiceImpl.findAll()).thenReturn(items);
 
         //Act
-        final List<Item> results = itemRepository.retrieveAllItems();
+        final Iterable<ItemEntity> results = itemRepository.retrieveAllItems();
+        List<ItemEntity> convertedToListResults = Lists.newArrayList(results);
 
         //Assert
-        assertThat(results, Matchers.hasSize(2));
-        assertThat(results, Matchers.hasItems(item1, item2));
+        assertThat(convertedToListResults, Matchers.hasSize(2));
+        assertThat(convertedToListResults, Matchers.hasItems(item1, item2));
 
     }
 
@@ -117,14 +110,14 @@ public class ItemRepositoryTest {
     public void remove_invokes_delete_on_ItemDBService() throws Exception {
         //Arrange
         final String expectedContent = "content";
-        final Item item = new Item(expectedContent);
-        item.setId("200");
+        final ItemEntity item = new ItemEntity(expectedContent);
+        item.setId(200L);
 
         //Act
         itemRepository.remove(item);
 
         //Assert
-        verify(mockItemDBService).delete(Integer.valueOf(item.getId()));
+        verify(mockItemDBServiceImpl).delete(item);
 
     }
 }
